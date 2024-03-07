@@ -201,7 +201,7 @@ public:
           f_overCurr = 0;  //Убрать перегрузку если ток упал 
           return 0;
         }
-        if ( millis() - tmrOverload > _overload_ms * 1000 ) { //Перегрузка более заданного времени
+        if ( millis() - tmrOverload > _overload_ms ) { //Перегрузка более заданного времени
           f_overCurr = 0;	//Убрать перегрузку
           return 1;						
         }

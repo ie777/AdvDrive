@@ -50,10 +50,10 @@ public:
   //  Включить защиту от перегрузки по току.
   //  Принимает: указатель на внешнюю float переменную, в которую постоянно считывается значение тока привода сторонней функцией
   //             макс. ток и макс. время перегрузки до отключения
-  void setOverload ( float * curr, float maxCurr, uint32_t overloadSec = 1) {
+  void setOverload ( float * curr, float maxCurr, uint32_t time_ms = 1) {
     _curr = curr;
     _maxCurr = maxCurr;
-    _overloadSec = overloadSec;
+    _overload_ms = time_ms;
   }
 
   //Отключить защиту от перегрузки по току.
@@ -201,7 +201,7 @@ public:
           f_overCurr = 0;  //Убрать перегрузку если ток упал 
           return 0;
         }
-        if ( millis() - tmrOverload > _overloadSec * 1000 ) { //Перегрузка более заданного времени
+        if ( millis() - tmrOverload > _overload_ms * 1000 ) { //Перегрузка более заданного времени
           f_overCurr = 0;	//Убрать перегрузку
           return 1;						
         }
@@ -214,7 +214,7 @@ private:
   uint32_t _pinSwFrw, _pinSwBkw;    //Пины концевиков 
   bool _swLevelFrw, _swLevelBkw;    //Уровень с концевиков в не сработаном состоянии (0 или 1)
   float _maxCurr = 0;               //Максимальный порог тока
-  int _overloadSec = 0;             //Максималное время перегрузки
+  int _overload_ms = 0;             //Максималное время перегрузки
   float *_curr = 0;                 //Указатель на переменную с текущим значением тока
 
   int _maxTimeSec = 0;

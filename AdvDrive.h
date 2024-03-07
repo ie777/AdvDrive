@@ -50,10 +50,10 @@ public:
   //  Включить защиту от перегрузки по току.
   //  Принимает: указатель на внешнюю float переменную, в которую постоянно считывается значение тока привода сторонней функцией
   //             макс. ток и макс. время перегрузки до отключения
-  void setOverload ( float * curr, float maxCurr, uint32_t time_ms = 1) {
+  void setOverload ( float * curr, float maxCurr, uint32_t maxTime_ms = 1000 ) {
     _curr = curr;
     _maxCurr = maxCurr;
-    _overload_ms = time_ms;
+    _overload_ms = maxTime_ms;
   }
 
   //Отключить защиту от перегрузки по току.
